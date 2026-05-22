@@ -4,6 +4,7 @@ const friendUpgrade = document.getElementById('friend-upgrade');
 var token = 0;
 increment.addEventListener("click", wingardiumLeviosa);
 friendUpgrade.addEventListener("click", avadaKedavra)
+const message = document.getElementById('message');
 
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -28,5 +29,5 @@ function avadaKedavra() {
 }
 
 function randObject() {
-
+    
 }
