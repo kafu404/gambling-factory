@@ -30,7 +30,7 @@ function avadaKedavra() {
 }
 //gacha for artefact
 function randObject() {
-
+//ouais test git push
 }
 
 //-------------- exchange -------------- 
