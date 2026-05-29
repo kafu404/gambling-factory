@@ -1,5 +1,5 @@
 const message = document.getElementById('message');
-
+var price;
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -34,13 +34,11 @@ function randObject() {
 }
 
 //-------------- exchange -------------- 
-
-function marketPrice() {
-
-    setInterval(() => { return price = getRandomArbitrary(5, 30) / 10 }, 30000);
-}
-console.log(marketPrice());
-var price = marketPrice();
+const market = document.getElementById('market');
+setInterval(() => {
+    price = getRandomArbitrary(5, 30) / 10;
+    market.innerHTML = price;
+}, 1000);
 
 function marketExchange() {
     return token * price
