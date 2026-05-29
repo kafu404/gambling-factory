@@ -5,4 +5,7 @@ class Token {
         this.name = name;
         this.mult = mult
     }
+//     function oui(name, mult) {
+//     return 
+// }
 }
