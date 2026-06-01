@@ -1,5 +1,6 @@
 const message = document.getElementById('message');
 var price = 1;
+var money = 0;
 const market = document.getElementById('market');
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -7,45 +8,76 @@ function getRandomArbitrary(min, max) {
 
 //timer pour le marché
 setInterval(() => {
-    price = getRandomArbitrary(5, 30) / 10;
+    price = getRandomArbitrary(5, 31) / 10;
     market.innerHTML = price;
-}, 5000);
+}, 1000);
+//refresh token and money 
+setInterval(() => {
+    tokenId.innerHTML = `${token} token`;
+    moneyId.innerHTML = `${money}`;
+}, 100);
 
-//gamble
 const increment = document.getElementById('increment');
 const tokenId = document.getElementById('token');
-const friendUpgrade = document.getElementById('friend-upgrade');
+
 var token = 0;
 increment.addEventListener("click", wingardiumLeviosa);
-friendUpgrade.addEventListener("click", avadaKedavra)
 
 function wingardiumLeviosa() {
     token++
-    setInterval(() => { tokenId.innerHTML = `${token} token`; }, 100);
+    //Changer ici, déplacer les innerHTML des currency et les fait juste reset tout les 100sec ensemble 
+
 
 }
 
-//friend ++
-function avadaKedavra() {
-    if (token >= 10) {
-        setInterval(() => token++, 1000);
-    }
 
-}
-//gacha for artefact
+//-------------- gacha -----------------
 function randObject() {
     //ouais test git push
 }
+///////////////////////////////////////////////
+//à modifier
+const gachaPool = [
+    { name: "Common Sword", weight: 0.70 },   // 70% chance
+    { name: "Rare Shield", weight: 0.25 },    // 25% chance
+    { name: "Ultra Rare Dragon", weight: 0.05 } // 5% chance
+];
 
+function rollGacha(pool) {
+    const random = Math.random(); // Generates number between 0 (inclusive) and 1 (exclusive)
+    let cumulativeWeight = 0;
+
+    for (const item of pool) {
+        cumulativeWeight += item.weight;
+        if (random < cumulativeWeight) {
+            return item.name; // Return the dropped item
+        }
+    }
+}
+console.log(rollGacha(gachaPool));
+////////////////////////////////////////////////
 //-------------- exchange -------------- 
 
 const exchange = document.getElementById('exchange');
 
-const money = document.getElementById('money');
+const moneyId = document.getElementById('money');
 exchange.addEventListener("click", marketExchange);
 
 function marketExchange() {
-    var moneyExchange = Math.floor(token * price);
+    money += Math.floor(token * price);
     token = 0;
-    money.innerHTML = `${moneyExchange}`;
+    moneyId.innerHTML = `${money}`;
+}
+
+//-------------- upgrades -------------- 
+const friendUpgrade = document.getElementById('friend-upgrade');
+friendUpgrade.addEventListener("click", avadaKedavra)
+
+// //friend ++
+function avadaKedavra() {
+    if (money >= 10) {
+        setInterval(() => token++, 1000);
+        money -= 10;
+    }
+
 }
