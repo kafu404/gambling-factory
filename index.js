@@ -1,11 +1,15 @@
 const message = document.getElementById('message');
-var price;
+var price = 1;
+const market = document.getElementById('market');
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-
-
+//timer pour le marché
+setInterval(() => {
+    price = getRandomArbitrary(5, 30) / 10;
+    market.innerHTML = price;
+}, 5000);
 
 //gamble
 const increment = document.getElementById('increment');
@@ -30,16 +34,18 @@ function avadaKedavra() {
 }
 //gacha for artefact
 function randObject() {
-//ouais test git push
+    //ouais test git push
 }
 
 //-------------- exchange -------------- 
-const market = document.getElementById('market');
-setInterval(() => {
-    price = getRandomArbitrary(5, 30) / 10;
-    market.innerHTML = price;
-}, 1000);
+
+const exchange = document.getElementById('exchange');
+
+const money = document.getElementById('money');
+exchange.addEventListener("click", marketExchange);
 
 function marketExchange() {
-    return token * price
+    var moneyExchange = Math.floor(token * price);
+    token = 0;
+    money.innerHTML = `${moneyExchange}`;
 }
