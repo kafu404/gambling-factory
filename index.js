@@ -14,7 +14,7 @@ setInterval(() => {
 //refresh token and money 
 setInterval(() => {
     tokenId.innerHTML = `${token} token`;
-    moneyId.innerHTML = `${money}`;
+    moneyId.innerHTML = `${Math.floor(money)}`;
 }, 100);
 
 const increment = document.getElementById('increment');
@@ -25,9 +25,6 @@ increment.addEventListener("click", wingardiumLeviosa);
 
 function wingardiumLeviosa() {
     token++
-    //Changer ici, déplacer les innerHTML des currency et les fait juste reset tout les 100sec ensemble 
-
-
 }
 
 
@@ -37,24 +34,24 @@ function randObject() {
 }
 ///////////////////////////////////////////////
 //à modifier
-const gachaPool = [
-    { name: "Common Sword", weight: 0.70 },   // 70% chance
-    { name: "Rare Shield", weight: 0.25 },    // 25% chance
-    { name: "Ultra Rare Dragon", weight: 0.05 } // 5% chance
-];
+// const gachaPool = [
+//     { name: "Common Sword", weight: 0.70 },   // 70% chance
+//     { name: "Rare Shield", weight: 0.25 },    // 25% chance
+//     { name: "Ultra Rare Dragon", weight: 0.05 } // 5% chance
+// ];
 
-function rollGacha(pool) {
-    const random = Math.random(); // Generates number between 0 (inclusive) and 1 (exclusive)
-    let cumulativeWeight = 0;
+// function rollGacha(pool) {
+//     const random = Math.random(); // Generates number between 0 (inclusive) and 1 (exclusive)
+//     let cumulativeWeight = 0;
 
-    for (const item of pool) {
-        cumulativeWeight += item.weight;
-        if (random < cumulativeWeight) {
-            return item.name; // Return the dropped item
-        }
-    }
-}
-console.log(rollGacha(gachaPool));
+//     for (const item of pool) {
+//         cumulativeWeight += item.weight;
+//         if (random < cumulativeWeight) {
+//             return item.name; // Return the dropped item
+//         }
+//     }
+// }
+// console.log(rollGacha(gachaPool));
 ////////////////////////////////////////////////
 //-------------- exchange -------------- 
 
@@ -72,12 +69,25 @@ function marketExchange() {
 //-------------- upgrades -------------- 
 const friendUpgrade = document.getElementById('friend-upgrade');
 friendUpgrade.addEventListener("click", avadaKedavra)
-
+var base = [10, 20, 30, 40];
+var incrementUpgrade = [1, 1, 1, 1];
+var start = false;
+var friendInterval = null;
 // //friend ++
 function avadaKedavra() {
-    if (money >= 10) {
-        setInterval(() => token++, 1000);
-        money -= 10;
-    }
 
+    if (money >= base[0]) {
+        if (start == true) {
+            clearInterval(friendInterval);
+            incrementUpgrade[0]++;
+            console.log(incrementUpgrade);
+            // le clearinterval ne fonctionne pas, il cumule au lieux de s'enlever
+        }
+        friendInterval = setInterval(() => token += incrementUpgrade[0], 1000);
+
+        money -= base[0];
+        base[0] *= 1.1;
+        console.log(base[0]);
+        start = true;
+    }
 }
