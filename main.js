@@ -1,7 +1,20 @@
 const message = document.getElementById('message');
+const goldenTokenId = document.getElementById('golden-token');
+const market = document.getElementById('market');
+const exchange = document.getElementById('exchange');
+const moneyId = document.getElementById('money');
+const slotMachineUpgrade = document.getElementById('slotMachine-upgrade');
+const friendUpgrade = document.getElementById('friend-upgrade');
+const blackjackUpgrade = document.getElementById('blackjack-upgrade');
+const rouletteUpgrade = document.getElementById('roulette-upgrade');
+const increment = document.getElementById('increment');
+const tokenId = document.getElementById('token');
 var price = 1;
 var money = 0;
-const market = document.getElementById('market');
+var token = 0;
+var basePriceUpgrades = [10, 10000, 50000, 1000000];
+var incrementUpgrade = [0, 0, 0, 0];
+
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -17,21 +30,45 @@ setInterval(() => {
     moneyId.innerHTML = `${Math.floor(money)}`;
 }, 100);
 
-const increment = document.getElementById('increment');
-const tokenId = document.getElementById('token');
-
-var token = 0;
+//-------------- clicker -----------------
 increment.addEventListener("click", wingardiumLeviosa);
-
 function wingardiumLeviosa() {
     token++
 }
 
 
-//-------------- gacha -----------------
-function randObject() {
-    //ouais test git push
+//-------------- Golden Token -----------------
+
+const gachaPool = [
+    //pourquoi ça retourne un undefined de temps en temps?
+
+    { name: "5 token", weight: 0.28 },  // 28% chance
+    { name: "10 token", weight: 0.22 }, // 22% chance
+    { name: "25 token", weight: 0.19 }, // 19% chance
+    { name: "50 token", weight: 0.14 }, // 14% chance
+    { name: "100 token", weight: 0.10 }, // 10% chance
+    { name: "500 token", weight: 0.06 },// 6% chance
+    { name: "1000 token", weight: 0.01 } // 1% chance
+];
+function goldenToken(pool) {
+    const random = Math.random();
+    let cumulativeWeight = 0;
+
+    for (const item of pool) {
+        cumulativeWeight += item.weight;
+        if (random < cumulativeWeight) {
+            return item.name;
+        }
+    }
 }
+function ouais() {
+    for (var i = 0; i < 100; i++) {
+        console.log(goldenToken(gachaPool));
+    }
+
+}
+goldenTokenId.addEventListener("click", ouais)
+
 ///////////////////////////////////////////////
 //à modifier
 // const gachaPool = [
@@ -55,9 +92,7 @@ function randObject() {
 ////////////////////////////////////////////////
 //-------------- exchange -------------- 
 
-const exchange = document.getElementById('exchange');
 
-const moneyId = document.getElementById('money');
 exchange.addEventListener("click", marketExchange);
 
 function marketExchange() {
@@ -67,27 +102,66 @@ function marketExchange() {
 }
 
 //-------------- upgrades -------------- 
-const friendUpgrade = document.getElementById('friend-upgrade');
-friendUpgrade.addEventListener("click", avadaKedavra)
-var base = [10, 20, 30, 40];
-var incrementUpgrade = [1, 1, 1, 1];
-var start = false;
-var friendInterval = null;
+
+
 // //friend ++
+
+friendUpgrade.addEventListener("click", avadaKedavra)
+var friendInterval = null;
+
 function avadaKedavra() {
 
-    if (money >= base[0]) {
-        if (start == true) {
-            clearInterval(friendInterval);
-            incrementUpgrade[0]++;
-            console.log(incrementUpgrade);
-            // le clearinterval ne fonctionne pas, il cumule au lieux de s'enlever
-        }
+    if (money >= basePriceUpgrades[0]) {
+        clearInterval(friendInterval);
+        incrementUpgrade[0]++;
         friendInterval = setInterval(() => token += incrementUpgrade[0], 1000);
+        money -= basePriceUpgrades[0];
+        basePriceUpgrades[0] *= 1.1;
+    }
+}
 
-        money -= base[0];
-        base[0] *= 1.1;
-        console.log(base[0]);
-        start = true;
+// slot machines
+
+slotMachineUpgrade.addEventListener("click", slotMachine)
+var slotmachineInterval = null;
+
+function slotMachine() {
+
+    if (money >= basePriceUpgrades[1]) {
+        clearInterval(slotmachineInterval);
+        incrementUpgrade[1] += 100;
+        slotmachineInterval = setInterval(() => token += incrementUpgrade[1], 1000);
+        money -= basePriceUpgrades[1];
+        basePriceUpgrades[1] *= 1.2;
+    }
+}
+//blackjack
+
+blackjackUpgrade.addEventListener("click", blackjack)
+var blackjackInterval = null;
+
+function blackjack() {
+
+    if (money >= basePriceUpgrades[2]) {
+        clearInterval(blackjackInterval);
+        incrementUpgrade[2] += 100;
+        blackjackInterval = setInterval(() => token += incrementUpgrade[2], 1000);
+        money -= basePriceUpgrades[2];
+        basePriceUpgrades[2] *= 2;
+    }
+}
+//roulette
+
+rouletteUpgrade.addEventListener("click", roulette)
+var rouletteInterval = null;
+
+function roulette() {
+
+    if (money >= basePriceUpgrades[3]) {
+        clearInterval(rouletteInterval);
+        incrementUpgrade[3] += 100;
+        rouletteInterval = setInterval(() => token += incrementUpgrade[3], 1000);
+        money -= basePriceUpgrades[3];
+        basePriceUpgrades[3] *= 2;
     }
 }
