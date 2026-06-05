@@ -28,7 +28,7 @@ setInterval(() => {
 setInterval(() => {
     tokenId.innerHTML = `${token} token`;
     moneyId.innerHTML = `${Math.floor(money)}`;
-}, 100);
+}, 10);
 
 //-------------- clicker -----------------
 increment.addEventListener("click", wingardiumLeviosa);
@@ -40,15 +40,14 @@ function wingardiumLeviosa() {
 //-------------- Golden Token -----------------
 
 const gachaPool = [
-    //pourquoi ça retourne un undefined de temps en temps?
-
-    { name: "5 token", weight: 0.28 },  // 28% chance
-    { name: "10 token", weight: 0.22 }, // 22% chance
-    { name: "25 token", weight: 0.19 }, // 19% chance
-    { name: "50 token", weight: 0.14 }, // 14% chance
-    { name: "100 token", weight: 0.10 }, // 10% chance
-    { name: "500 token", weight: 0.06 },// 6% chance
-    { name: "1000 token", weight: 0.01 } // 1% chance
+    { name: "5 token", weight: 0.26, mult: 5 },  // 28% chance
+    { name: "10 token", weight: 0.24, mult: 10 }, // 22% chance
+    { name: "25 token", weight: 0.19, mult: 25 }, // 19% chance
+    { name: "50 token", weight: 0.12, mult: 50 }, // 14% chance
+    { name: "100 token", weight: 0.10, mult: 100 }, // 10% chance
+    { name: "500 token", weight: 0.06, mult: 500 },// 6% chance
+    { name: "-500 token", weight: 0.06, mult: -500 },// 6% chance
+    { name: "1000 token", weight: 0.01, mult: 1000 } // 1% chance
 ];
 function goldenToken(pool) {
     const random = Math.random();
@@ -57,15 +56,19 @@ function goldenToken(pool) {
     for (const item of pool) {
         cumulativeWeight += item.weight;
         if (random < cumulativeWeight) {
-            return item.name;
+            return item.mult;
         }
     }
 }
 function ouais() {
-    for (var i = 0; i < 100; i++) {
-        console.log(goldenToken(gachaPool));
-    }
+    console.log(goldenToken(gachaPool));
+    var mult = goldenToken(gachaPool);
+    a(mult);
+}
 
+function a(mult) {
+    var multInterval = setInterval(() => token *= mult, 1000);
+    setTimeout(() => clearInterval(multInterval), 10000);
 }
 goldenTokenId.addEventListener("click", ouais)
 
@@ -90,6 +93,7 @@ goldenTokenId.addEventListener("click", ouais)
 // }
 // console.log(rollGacha(gachaPool));
 ////////////////////////////////////////////////
+
 //-------------- exchange -------------- 
 
 
@@ -144,7 +148,7 @@ function blackjack() {
 
     if (money >= basePriceUpgrades[2]) {
         clearInterval(blackjackInterval);
-        incrementUpgrade[2] += 100;
+        incrementUpgrade[2] += 1000;
         blackjackInterval = setInterval(() => token += incrementUpgrade[2], 1000);
         money -= basePriceUpgrades[2];
         basePriceUpgrades[2] *= 2;
@@ -159,7 +163,7 @@ function roulette() {
 
     if (money >= basePriceUpgrades[3]) {
         clearInterval(rouletteInterval);
-        incrementUpgrade[3] += 100;
+        incrementUpgrade[3] += 10000;
         rouletteInterval = setInterval(() => token += incrementUpgrade[3], 1000);
         money -= basePriceUpgrades[3];
         basePriceUpgrades[3] *= 2;
