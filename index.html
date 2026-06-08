@@ -5,43 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gambling Factory</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <span id="token"> 0</span>
-    <br>
-    <button id="increment">
-        gamble
-    </button>
-    <button id="friend-upgrade">
-        friend++
-    </button>
-    <button id="slotMachine-upgrade">
-        slot machine
-    </button>
-    <button id="blackjack-upgrade">
-        blackjack
-    </button>
-    <button id="roulette-upgrade">
-        roulette
-    </button>
-    <hr>
-    <div>
-        <p> Exchange token </p>
-        money: $
-        <span id="money">0</span>
-        <br>
-        dollar per token: $
-        <span id="market">1</span>
-        <br>
-        <button id="exchange">
-            exchange
-        </button>
 
-        <hr>
-        <button id="golden-token">
-            golden-token
+    <div class="left-panel">
+        money:
+        <span id="money">0</span>
+
+        <br><br>
+
+        market:
+        <span id="market">1</span>
+
+        <br><br>
+
+        <button id="exchange">exchange</button>
+    </div>
+
+    <div class="center-panel">
+        <span id="token">0</span>
+        <button id="increment">
+            gamble
         </button>
+    </div>
+
+    <div class="right-panel">
+        <div id="friend-upgrade"><button>friend++</button>
+            price:
+            <span id="friend-price">
+                10
+            </span>
+        </div>
+        <div><button id="slotMachine-upgrade">slot machine</button></div>
+        <div>
+            <button id="blackjack-upgrade">blackjack</button>
+        </div>
+        <div>
+            <button id="roulette-upgrade">roulette</button>
+        </div>
+
+    </div>
+
+    <div class="goldenToken" id="golden-token">
+        <button>golden token</button>
     </div>
     <script type="module" src="./main.js"></script>
 </body>

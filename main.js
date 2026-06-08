@@ -12,9 +12,13 @@ const tokenId = document.getElementById('token');
 var price = 1;
 var money = 0;
 var token = 0;
+var winWidth = window.innerWidth;
+var winHeight = window.innerHeight;
 var basePriceUpgrades = [10, 10000, 50000, 1000000];
 var incrementUpgrade = [0, 0, 0, 0];
 
+
+//faire une initialisation des variable affiché sur le jeu dès le début
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -38,6 +42,7 @@ function wingardiumLeviosa() {
 
 
 //-------------- Golden Token -----------------
+goldenTokenId.addEventListener("click", goldenToken)
 
 const gachaPool = [
     { name: "5 token", weight: 0.26, mult: 5 },  // 28% chance
@@ -49,7 +54,16 @@ const gachaPool = [
     { name: "-500 token", weight: 0.06, mult: -500 },// 6% chance
     { name: "1000 token", weight: 0.01, mult: 1000 } // 1% chance
 ];
-function goldenToken(pool) {
+function goldenTokenMove() {
+    let randomTop = getRandomArbitrary(0, winHeight);
+    let randomLeft = getRandomArbitrary(0, winWidth);
+
+    goldenTokenId.style.top = randomTop + "px";
+    goldenTokenId.style.left = randomLeft + "px";
+    goldenTokenId.style.display = "block";
+}
+setInterval(() => { goldenTokenMove() }, 1000);
+function goldenTokenRand(pool) {
     const random = Math.random();
     let cumulativeWeight = 0;
 
@@ -60,17 +74,19 @@ function goldenToken(pool) {
         }
     }
 }
-function ouais() {
-    console.log(goldenToken(gachaPool));
-    var mult = goldenToken(gachaPool);
+function goldenToken() {
+    goldenTokenId.style.display = "none";
+    var mult = goldenTokenRand(gachaPool);
     a(mult);
+    console.log(mult);
 }
 
 function a(mult) {
-    var multInterval = setInterval(() => token *= mult, 1000);
-    setTimeout(() => clearInterval(multInterval), 10000);
+    token *= mult
+    // var multInterval = setInterval(() => , 1000);
+    // setTimeout(() => clearInterval(multInterval), 10000);
 }
-goldenTokenId.addEventListener("click", ouais)
+
 
 ///////////////////////////////////////////////
 //à modifier
@@ -111,19 +127,21 @@ function marketExchange() {
 // //friend ++
 
 friendUpgrade.addEventListener("click", avadaKedavra)
+const friendPrice = document.getElementById("friend-price");
 var friendInterval = null;
-
 function avadaKedavra() {
 
     if (money >= basePriceUpgrades[0]) {
         clearInterval(friendInterval);
         incrementUpgrade[0]++;
+
         friendInterval = setInterval(() => token += incrementUpgrade[0], 1000);
         money -= basePriceUpgrades[0];
         basePriceUpgrades[0] *= 1.1;
+        friendPrice.innerHTML = Math.floor(basePriceUpgrades[0]);
     }
 }
-
+console.log(document.body.innerHTML);
 // slot machines
 
 slotMachineUpgrade.addEventListener("click", slotMachine)
