@@ -61,13 +61,16 @@ function goldenToken(pool) {
     }
 }
 function ouais() {
-    console.log(goldenToken(gachaPool));
     var mult = goldenToken(gachaPool);
     a(mult);
 }
 
 function a(mult) {
-    var multInterval = setInterval(() => token *= mult, 1000);
+    var multInterval = setInterval(() => {
+        token *= mult
+        console.log(`${token} et ${mult}`);
+
+    }, 1000);
     setTimeout(() => clearInterval(multInterval), 10000);
 }
 goldenTokenId.addEventListener("click", ouais)
