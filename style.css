@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+}
+
+
+/* panneau gauche */
+.left-panel {
+    padding: 20px;
+    border-right: 1px solid black;
+}
+
+/* centre */
+.center-panel {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+/* panneau droite */
+.right-panel {
+    padding: 20px;
+    border-left: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.goldenToken {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+}
+
+.goldenToken button {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.15);
+    }
+}
