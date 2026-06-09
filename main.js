@@ -11,10 +11,10 @@ const increment = document.getElementById('increment');
 const tokenId = document.getElementById('token');
 var price = 1;
 var money = 0;
-var token = 0;
+var token = 500000000;
 var winWidth = window.innerWidth;
 var winHeight = window.innerHeight;
-var basePriceUpgrades = [10, 10000, 50000, 1000000];
+var basePriceUpgrades = [10, 777, 2121, 1000000];
 var incrementUpgrade = [0, 0, 0, 0];
 
 
@@ -82,7 +82,10 @@ function goldenToken() {
 }
 
 function a(mult) {
-    token *= mult
+    if (token < 0)
+        token += mult
+    else
+        token *= mult
     // var multInterval = setInterval(() => , 1000);
     // setTimeout(() => clearInterval(multInterval), 10000);
 }
@@ -141,41 +144,44 @@ function avadaKedavra() {
         friendPrice.innerHTML = Math.floor(basePriceUpgrades[0]);
     }
 }
-console.log(document.body.innerHTML);
 // slot machines
 
 slotMachineUpgrade.addEventListener("click", slotMachine)
 var slotmachineInterval = null;
-
+const slotMachinePrice = document.getElementById("slotMachine-price");
 function slotMachine() {
 
     if (money >= basePriceUpgrades[1]) {
         clearInterval(slotmachineInterval);
-        incrementUpgrade[1] += 100;
+        incrementUpgrade[1] += 777;
         slotmachineInterval = setInterval(() => token += incrementUpgrade[1], 1000);
         money -= basePriceUpgrades[1];
         basePriceUpgrades[1] *= 1.2;
+        slotMachinePrice.innerHTML = Math.floor(basePriceUpgrades[1]);
     }
 }
 //blackjack
 
 blackjackUpgrade.addEventListener("click", blackjack)
 var blackjackInterval = null;
+const blackjackPrice = document.getElementById("blackjack-price");
 
 function blackjack() {
 
     if (money >= basePriceUpgrades[2]) {
         clearInterval(blackjackInterval);
-        incrementUpgrade[2] += 1000;
-        blackjackInterval = setInterval(() => token += incrementUpgrade[2], 1000);
+        incrementUpgrade[2] += 2121;
+        blackjackInterval = setInterval(() => token += incrementUpgrade[2], 21);
         money -= basePriceUpgrades[2];
         basePriceUpgrades[2] *= 2;
+        blackjackPrice.innerHTML = Math.floor(basePriceUpgrades[2]);
     }
 }
 //roulette
 
 rouletteUpgrade.addEventListener("click", roulette)
 var rouletteInterval = null;
+const roulettePrice = document.getElementById("roulette-price");
 
 function roulette() {
 
@@ -185,5 +191,6 @@ function roulette() {
         rouletteInterval = setInterval(() => token += incrementUpgrade[3], 1000);
         money -= basePriceUpgrades[3];
         basePriceUpgrades[3] *= 2;
+        roulettePrice.innerHTML = Math.floor(basePriceUpgrades[3]);
     }
 }

@@ -50,6 +50,27 @@ body {
     animation: pulse 1s infinite alternate;
 }
 
+.increment {
+    width: 250px;
+
+    margin-left: 20px;
+}
+
+.increment:hover {
+    transform: scale(1.1);
+}
+
+.increment:active {
+    transform: scale(0.9);
+}
+
+.token {
+    font-size: 100px;
+    font-weight: bold;
+}
+
+
+
 @keyframes pulse {
     from {
         transform: scale(1);
